@@ -1,45 +1,35 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Xml.Linq;
+using ABMTestWebService.Entities;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ABMTestWebService.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/")]
     [ApiController]
     public class ValuesController : ControllerBase
     {
-        // GET api/values
-        [HttpGet]
-        public ActionResult<IEnumerable<string>> Get()
-        {
-            return new string[] { "value1", "value2" };
-        }
-
-        // GET api/values/5
-        [HttpGet("{id}")]
-        public ActionResult<string> Get(int id)
-        {
-            return "value";
-        }
-
-        // POST api/values
+        [Route("SendDocument")]
         [HttpPost]
-        public void Post([FromBody] string value)
+        public int ParsePayload([FromBody]Document document)
         {
-        }
+            if(document != null)
+            {
+                if(document.Declaration != "DEFAULT")
+                {
+                    return -1;
+                }
+                else if(document.SiteID != "DUB")
+                {
+                    return -2;
+                }
+            }
 
-        // PUT api/values/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE api/values/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
+            return 0;
         }
     }
 }
