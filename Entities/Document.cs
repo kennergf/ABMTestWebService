@@ -5,9 +5,30 @@ namespace ABMTestWebService.Entities
     [XmlRoot("InputDocument")]
     public class Document
     {
-        [XmlElement("Declaration")]
-        public string Declaration {get;set;}
+        [XmlElement("DeclarationList")]
+        public DeclarationDTO[] DeclarationList {get; set;}
+    }
 
+    public class DeclarationDTO
+    {
+        [XmlElement("Declaration")]
+        public DeclarationHeaderDTO Declaration {get; set;}
+    }
+
+    public class DeclarationHeaderDTO
+    {
+        [XmlAttribute("Command")]
+        public string Command {get; set;}
+
+        [XmlAttribute("Version")]
+        public string Version {get; set;}
+
+        [XmlElement("DeclarationHeader")]
+        public DeclarationDataDTO DeclarationHeader {get; set;}
+    }
+
+    public class DeclarationDataDTO
+    {
         [XmlElement("Jurisdiction")]
         public string Jurisdiction {get;set;}
 
